@@ -1,0 +1,12 @@
+/http
+	/inc 	- Include files
+	/lib	- Core classes
+	/modules	- App specific Classes
+		/example
+			config.php - Module specific configuration
+			example.php - module Class
+			/view
+				presenter.php - Templating class - > Need to make sure all vars for the template are ok
+
+	/static		- Static content (imgs, js, ..)
+		/template
