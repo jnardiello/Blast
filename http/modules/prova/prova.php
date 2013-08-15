@@ -13,10 +13,13 @@ class Prova extends Model{
 	 * @var array
 	 * @access private
 	 */
-	static public $events = array("sit1","sit2","sit3");
+	 private static $events = array("sit1","sit2","sit3");
 
-	function __construct($param, $get){
-		parent::__construct($param, $get);
+	function __construct($param, $get, $event){
+                
+		parent::__construct($param, $get, $event);
+                if(isset($this->event))
+                    echo "Evento definito";
 	}
  
 
@@ -24,22 +27,10 @@ class Prova extends Model{
 	 * Returning events for the current class
 	 * @return Array Events array
 	 */
-	public function getEvents(){
-		return $this->events;
+	static public function getEvents(){
+		return self::$events;
 	}
 
-
-
-
-
-	/**
-	 * getEvent() checks if there is any given event in the parameters passed via URL
-	 * @return String Returns the event if any is found, false otherwise.
-	 */
-	public function getEvent(){
-
-		
-	}
 
 
 	/**
@@ -49,7 +40,6 @@ class Prova extends Model{
 	public function getModule(){
 		return $this->moduleName;
 	}
-
 }
 
 

@@ -20,12 +20,10 @@ class URLParser{
 		if($this->noEmptySpaces($url)){
 			$this->setModel($url);
 
+                        //Note: while parameters internal to the object are setted here, they need to be rebuilt with setEvent() to be considered valid
 			$this->setParameters($url);
-
-			if($this->getParameters()){
-				$className=$this->model;
-				$this->setEvent($this->parameters, $className::$events);
-			}
+                        
+                         
 		}else{
 			$host  = $_SERVER['HTTP_HOST'];
 			$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
@@ -52,7 +50,8 @@ class URLParser{
 	 * @return Array Array with the parsed URL
 	 */
 	private function getPath($parseThisUrl){
-		return parse_url($parseThisUrl)[path];
+		$parsedUrl= parse_url($parseThisUrl);
+                return $parsedUrl[path];
 	}
 
 
@@ -66,16 +65,18 @@ class URLParser{
 	 * @return String Current method provided via URL
 	 */
 	private function setModel($url){
-		$currentClass = explode("/", $this->getPath($url))[1];
+                $tempClass=explode("/", $this->getPath($url));
+		$currentClass = $tempClass[1];
 
 		if(empty($currentClass)){
 			$this->model=__DEFAULT__;
 		}else{
-			if(class_exists($currentClass)){
+			if(file_exists("./modules/$currentClass/$currentClass.php")){
 				$this->model = $currentClass;
 			}else{
 				$host  = $_SERVER['HTTP_HOST'];
 				$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+                             
 				header("Location: http://$host$uri/error/404");
 				//header("Location: http://localhost/test/URLParser.test.php?error=true");   -> Line for testing
 			}
@@ -109,27 +110,30 @@ class URLParser{
 	 * @param Array $events Events array as defined in the current model class    
 	 * @return Boolean True if an event is defined and setted, false otherwise
 	 */
-	private function setEvent($parameters, $events){
+	public function setEvent($parameters, $events){
 		$tempParams = Array();
 		$tempEvent = Array();
+                if(!empty($parameters)){
+                    //Recording Event and rebuilding parameters array
+                    foreach($parameters as $param){
+                            if($this->isEvent($param, $events)){
+                                    array_push($tempEvent, $param);
+                            }else{
+                                    array_push($tempParams, $param);
+                            }
+                    }
 
-		//Recording Event and rebuilding parameters array
-		foreach($parameters as $param){
-			if($this->isEvent($param, $events)){
-				array_push($tempEvent, $param);
-			}else{
-				array_push($tempParams, $param);
-			}
-		}
+                    $this->parameters = $tempParams;
 
-		$this->parameters = $tempParams;
-
-		if(count($tempEvent)>0){
-			$this->realEvent=$tempEvent[0];
-			return true;
-		}else{
-			return false;
-		}
+                    if(count($tempEvent)>0){
+                            $this->realEvent=$tempEvent[0];
+                            return true;
+                    }else{
+                            return false;
+                    }
+                }else{
+                    return false;
+                }
 	}
 
 
@@ -170,6 +174,10 @@ class URLParser{
 			return false;
 	}
 
+        /**
+         * Getter for the event for the current model/URI, if any has been defined. False otherwise.
+         * @return String Return string if any event has been defined, false otherwise
+         */
 	function getEvent(){
 		if(!empty($this->realEvent))
 			return $this->realEvent;
@@ -177,6 +185,11 @@ class URLParser{
 			return false;
 	}
 
+        
+        /**
+         * Getter model for the current router
+         * @return String current model provided by URI
+         */
 	function getModel(){
 			return $this->model;
 	}

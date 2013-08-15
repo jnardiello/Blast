@@ -5,9 +5,11 @@ abstract class Model{
 	
 	protected $parameters;
 	protected $getParams;
+        protected $event;
 
 
-	function __construct($param, $get){
+
+	function __construct($param, $get, $event){
 		
 		if(isset($param) && count($param)>0){
 			$this->parameters = $param;
@@ -16,8 +18,10 @@ abstract class Model{
 		if(isset($get) && count($get)>0){
 			$this->getParams = $get;
 		}
+                
+                if(isset($event))
+                    $this->event=$event;
 	}
-
 
 
 	public function getParameters(){
@@ -28,11 +32,14 @@ abstract class Model{
 	public function getGetParameters(){
 		return $this->getParams;
 	}
+        
+        
+        public function getEvent(){
+            return $this->event;
+        }
 
 
 	abstract function getModule();
-	abstract function getEvent();
-
 }
 
 

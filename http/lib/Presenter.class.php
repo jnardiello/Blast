@@ -38,8 +38,7 @@ abstract class Presenter{
 			if(file_exists($eventFile)){
 				require_once($eventFile);
 			}else{
-				//header("Location: http://localhost/404");
-				echo "NO!";
+				header("Location: http://localhost/error/404");
 			}
 		}else{
 

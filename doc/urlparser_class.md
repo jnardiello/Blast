@@ -38,7 +38,7 @@ URLParser not only assigns module, event and parameters (if any) but also ensure
 
 ###Setters
 1. **private** *setModel*($url)
-2. **private** *setEvent*($parameters, $events)
+2. **public** *setEvent*($parameters, $events)
 3. **private** *setParameters*($url)
 
 ###Getters

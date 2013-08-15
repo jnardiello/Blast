@@ -1,11 +1,9 @@
 <?php 
 
-
-include_once('config.php');
-
 /**
- * Including the Classes Autoloader Routine
+ * Including basic configuration and autoloading files
  */
+include_once('config.php');
 include_once("inc/autoloader.php");
 
 
@@ -14,16 +12,8 @@ include_once("inc/autoloader.php");
  * Creating the routing core object. This is where all the logic about URL processing happens
  */
 $router = new URLparser($_SERVER['REQUEST_URI']);
+$model= $router->getModel();
 
-/**
- * Defining the module to load and relative parameters
- */
-
-$model = $router->getModel;
-
-
-if(count(URLparser::getParameters($_SERVER['REQUEST_URI']))>0)
-	$parameters = URLparser::getParameters($_SERVER['REQUEST_URI']);
 
 
 /**
@@ -31,22 +21,42 @@ if(count(URLparser::getParameters($_SERVER['REQUEST_URI']))>0)
  * 
  * classFile checks if a Class for the module (Model) & view exist. If they exist then they are loaded. Otherwise we redirect to 404.
  */
-$ModelFile = './modules/'.$model.'/'.$model.'.php';
-$ViewFile = './modules/'.$model.'/view/'.$model.'View.php';
+
+$ModelFile = "./modules/$model/$model.php";
+$ViewFile = "./modules/$model/view/".$model."View.php";
 
 
-if(file_exists($ModelFile) && file_exists($ViewFile)){
-	require_once($ModelFile);
-	require_once($ViewFile);
-}else
-	header("Location: http://localhost/404");
+require_once($ModelFile);
+require_once($ViewFile);
+
+
+
+/**
+ * 
+ * Once model has been extracted, confirmed AND loaded we can set event and parameters. 
+ * When the $router has been created a parameters field was created within the object, yet we can't use it.
+ * We first need to set the event. The setEvent() method will rebuild the $parameters field excluding the setted event.
+ * 
+ * Also, we can't call setEvent() and setParameters() before as they require the $model to be identified and correctly loaded.
+ * To be more precise: setEvent() calls a static field from the $model class, therefore to work correctly it needs the $model class to be instantiated.
+ * 
+ */
+if($router->setEvent($router->getParameters(), $model::getEvents()))
+    $event = $router->getEvent();
+
+
+if($router->getParameters())
+    $parameters = $router->getParameters();
+
 
 
 /**
  * Creating the model for current state
  * @var Array parameters passed by the router
  */
-$modelInstance = new $model($parameters, $_GET);
+$modelInstance = new $model($parameters, $_GET, $event);
+
+
 
 /**
  *	VIEW
@@ -59,6 +69,5 @@ $viewInstance = new $viewName($modelInstance);
 
 //Render of the Template
 $viewInstance->render();
-
 
 ?>
