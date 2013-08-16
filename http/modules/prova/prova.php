@@ -16,10 +16,9 @@ class Prova extends Model{
 	 private static $events = array("sit1","sit2","sit3");
 
 	function __construct($param, $get, $event){
-                
+            
 		parent::__construct($param, $get, $event);
-                if(isset($this->event))
-                    echo "Evento definito";
+                
 	}
  
 
@@ -30,7 +29,6 @@ class Prova extends Model{
 	static public function getEvents(){
 		return self::$events;
 	}
-
 
 
 	/**
