@@ -1,5 +1,5 @@
 <pre>
-<?php print_r($app->getParameters()); echo $app->getEvent(); echo $app->getModule();?>
+<?php print_r($appModel->getParameters()); echo $appModel->getEvent(); echo $appModel->getModule();?>
 </pre>
 
 
