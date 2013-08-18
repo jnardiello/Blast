@@ -13,7 +13,7 @@ class Prova extends Model{
 	 * @var array
 	 * @access private
 	 */
-	 private static $events = array("sit1","sit2","sit3");
+	 private static $events = array("es1","es2","es3");
 
 	function __construct($param, $get, $event){
             

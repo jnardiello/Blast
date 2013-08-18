@@ -2,8 +2,8 @@
 /**
  * Including basic configuration and autoloading files
  */
-include_once('config.php');
-include_once("inc/autoloader.php");
+require_once('config.php');
+require_once("inc/autoloader.php");
 
 
 
@@ -13,12 +13,17 @@ include_once("inc/autoloader.php");
 $router = new URLparser($_SERVER['REQUEST_URI']);
 $model= $router->getModel();
 
+/**
+ * classToLead is the effective model class that will be loaded. It can either be a model name OR an event. Events are classes that extends the basic model provided in the module, they extend the basic contract with additional methods.
+ */
+$classToLoad = $model;
 
 
 /**
  *	Including Classes
  * 
  * classFile checks if a Class for the module (Model) & view exist. If they exist then they are loaded. Otherwise we redirect to 404.
+ * 
  */
 $ModelFile = "./modules/$model/$model.php";
 $ViewFile = "./modules/$model/views/".$model."View.php";
@@ -39,8 +44,11 @@ require_once($ViewFile);
  * To be more precise: setEvent() calls a static field from the $model class, therefore to work correctly it needs the $model class to be instantiated.
  * 
  */
-if($router->setEvent($router->getParameters(), $model::getEvents()))
+if($router->setEvent($router->getParameters(), $model::getEvents())){
     $event = $router->getEvent();
+    $classToLoad = $event;
+    require_once "./modules/$model/events/$event.php";
+}
 
 
 if($router->getParameters())
@@ -52,7 +60,7 @@ if($router->getParameters())
  * Creating the model for current state
  * @var Array parameters passed by the router
  */
-$modelInstance = new $model($parameters, $_GET, $event);
+$modelInstance = new $classToLoad($parameters, $_GET, $event);
 
 
 
