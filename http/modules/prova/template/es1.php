@@ -5,6 +5,6 @@
 echo $app->getModule()."<br />";
 print_r($app->getParameters());
 echo $app->getEvent();
-echo $app->displayEs1();
+echo $app->loadEs1View();
 
 ?>

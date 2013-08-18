@@ -33,8 +33,6 @@ abstract class Presenter{
 
 		if($app->getEvent()){
 			$eventFile = './modules/'.$app->getModule().'/template/'.$app->getEvent().'.php';
-
-
 			if(file_exists($eventFile)){
 				require_once($eventFile);
 			}else{

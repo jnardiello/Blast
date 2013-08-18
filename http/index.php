@@ -36,6 +36,8 @@ require_once($ViewFile);
 
 /**
  * 
+ * EVENT
+ * 
  * Once model has been extracted, confirmed AND loaded we can set event and parameters. 
  * When the $router has been created a parameters field was created within the object, yet we can't use it.
  * We first need to set the event. The setEvent() method will rebuild the $parameters field excluding the setted event.
@@ -43,11 +45,14 @@ require_once($ViewFile);
  * Also, we can't call setEvent() and setParameters() before as they require the $model to be identified and correctly loaded.
  * To be more precise: setEvent() calls a static field from the $model class, therefore to work correctly it needs the $model class to be instantiated.
  * 
+ * We set the correct model and view to load.
+ * 
  */
 if($router->setEvent($router->getParameters(), $model::getEvents())){
     $event = $router->getEvent();
     $classToLoad = $event;
     require_once "./modules/$model/events/$event.php";
+    require_once "./modules/$model/views/".$event."View.php";
 }
 
 
@@ -63,16 +68,17 @@ if($router->getParameters())
 $modelInstance = new $classToLoad($parameters, $_GET, $event);
 
 
-
 /**
  *	VIEW
+ *  $moduleInstance is the real module that was loaded. Either the main Module or the current Event.
  *
  */
-$viewName=$model."View";
+$viewName=$classToLoad."View";
 $viewInstance = new $viewName($modelInstance);
 
 
 
 //Render of the Template
 $viewInstance->render();
+
 ?>
