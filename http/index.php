@@ -1,5 +1,4 @@
 <?php 
-
 /**
  * Including basic configuration and autoloading files
  */
@@ -21,9 +20,8 @@ $model= $router->getModel();
  * 
  * classFile checks if a Class for the module (Model) & view exist. If they exist then they are loaded. Otherwise we redirect to 404.
  */
-
 $ModelFile = "./modules/$model/$model.php";
-$ViewFile = "./modules/$model/view/".$model."View.php";
+$ViewFile = "./modules/$model/views/".$model."View.php";
 
 
 require_once($ModelFile);
@@ -69,5 +67,4 @@ $viewInstance = new $viewName($modelInstance);
 
 //Render of the Template
 $viewInstance->render();
-
 ?>
