@@ -2,9 +2,6 @@
 
 <?php 
 
-echo $app->getModule()."<br />";
-print_r($app->getParameters());
-echo $app->getEvent();
 echo $app->loadEs1View();
 
 ?>

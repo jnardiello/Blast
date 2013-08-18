@@ -28,11 +28,11 @@ abstract class Presenter{
 		 * $app is the current state of the app
 		 * @var Model is a reference to Model instance.
 		 */
-		$app = $this->model;
+		$appModel = $this->model;
+                $app = $this;
 
-
-		if($app->getEvent()){
-			$eventFile = './modules/'.$app->getModule().'/template/'.$app->getEvent().'.php';
+		if($appModel->getEvent()){
+			$eventFile = './modules/'.$appModel->getModule().'/template/'.$appModel->getEvent().'.php';
 			if(file_exists($eventFile)){
 				require_once($eventFile);
 			}else{
@@ -40,8 +40,8 @@ abstract class Presenter{
 			}
 		}else{
 
-			if(file_exists('./modules/'.$app->getModule().'/template/'.$app->getModule().'.php')){
-				require_once('./modules/'.$app->getModule().'/template/'.$app->getModule().'.php');
+			if(file_exists('./modules/'.$appModel->getModule().'/template/'.$appModel->getModule().'.php')){
+				require_once('./modules/'.$appModel->getModule().'/template/'.$appModel->getModule().'.php');
 			}
 		}
 	
