@@ -30,6 +30,6 @@ session_start();
 /**
  * Default module name to load when no module is specified via URL
  */
-define("__DEFAULT__", "Prova");
+define("__DEFAULT__", "Example");
 
  ?>

@@ -4,7 +4,7 @@
  * @author Jacopo Nardiello <jacopo.nardiello@gmail.com>
  * 
  */
-class Prova extends Model{
+class Example extends Model{
 
 	protected $moduleName=__CLASS__;
 

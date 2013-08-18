@@ -1,7 +1,7 @@
 <?php
 
 
-class Es1View extends ProvaView{
+class Es1View extends ExampleView{
     
 	public function __construct($model){
 		parent::__construct($model);

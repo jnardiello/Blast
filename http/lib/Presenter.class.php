@@ -3,14 +3,14 @@
 abstract class Presenter{
 	/**
 	 * Model reference
-	 * @var Prova 
+	 * @var ModelName 
 	 */
 	protected $model;
 
 
 	/**
 	 * Simply getting a reference to the relative model object
-	 * @param Prova $module The model object
+	 * @param ModelName $module The model object
 	 */
 	protected function __construct($module){
 		$this->model = $module;

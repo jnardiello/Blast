@@ -1,7 +1,7 @@
 <?php
 
 
-class Es1 extends Prova{
+class Es1 extends Example{
     function __construct($param, $get, $event){
             
 		parent::__construct($param, $get, $event);
