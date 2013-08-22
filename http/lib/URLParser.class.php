@@ -28,7 +28,7 @@ class URLParser{
 			$host  = $_SERVER['HTTP_HOST'];
 			$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 			header("Location: http://$host$uri/error/404");
-			//header("Location: http://localhost/test/URLParser.test.php?error=true;");   -> Line for testing
+			//header("Location: http://localhost/test/URLParser.test.php?error=true;");  // -> Line for testingn       
 
 		}
 	}
@@ -72,13 +72,13 @@ class URLParser{
 			$this->model=__DEFAULT__;
 		}else{
 			if(file_exists("./modules/$currentClass/$currentClass.php")){
-				$this->model = $currentClass;
+                            $this->model = $currentClass;
 			}else{
 				$host  = $_SERVER['HTTP_HOST'];
 				$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-                             
+                                
 				header("Location: http://$host$uri/error/404");
-				//header("Location: http://localhost/test/URLParser.test.php?error=true");   -> Line for testing
+				//header("Location: http://localhost/test/URLParser.test.php?error=true"); //  -> Line for testing
 			}
 		}	
 	}

@@ -47,12 +47,19 @@ require_once($ViewFile);
  * 
  * We set the correct model and view to load.
  * 
+ * Events are optional and the getEvents static method is not mandatory.
+ * 
  */
-if($router->setEvent($router->getParameters(), $model::getEvents())){
-    $event = $router->getEvent();
-    $classToLoad = $event;
-    require_once "./modules/$model/events/$event.php";
-    require_once "./modules/$model/views/".$event."View.php";
+
+if(method_exists("$model", 'getEvents')){
+    if($router->setEvent($router->getParameters(), $model::getEvents())){
+        $event = $router->getEvent();
+        $classToLoad = $event;
+        require_once "./modules/$model/events/$event.php";
+        require_once "./modules/$model/views/".$event."View.php";
+    }
+}else{
+        $event ="";
 }
 
 

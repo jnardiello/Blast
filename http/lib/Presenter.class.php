@@ -31,12 +31,13 @@ abstract class Presenter{
 		$appModel = $this->model;
                 $app = $this;
 
+                
 		if($appModel->getEvent()){
 			$eventFile = './modules/'.$appModel->getModule().'/template/'.$appModel->getEvent().'.php';
 			if(file_exists($eventFile)){
 				require_once($eventFile);
 			}else{
-				header("Location: http://localhost/error/404");
+                                header("Location: http://localhost/error/404");
 			}
 		}else{
 
