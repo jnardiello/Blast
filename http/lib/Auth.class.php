@@ -2,10 +2,11 @@
 
 abstract class Auth{
     
-    abstract function isLoggedIn();  
+    abstract function login();  
     
-    abstract function isAuthorized();
+    abstract function logout();
     
+    abstract function isLoggedIn();
     
 }
 
