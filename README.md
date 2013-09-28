@@ -11,4 +11,4 @@ If you are interested in understanding how to create a Module please refer to th
 ##Disclaimer and who is this for
 **Blast** is a really basic framework. It isn't a well-packed fat framework, providing loads of functionalities and using a mind-twisting logic. It's inteded for really fast development and the framework is aimed to be a container for user-designed-modules. Using frameworks as CakePHP or Symfony for personal projects is a bit like using a Bazooka to kill flies.  
   
-This is what **Blast** is supposed for: make life easy for quick projects and let you focus on your module design.
+This is what **Blast** is supposed for: make life easier on quick projects and let you focus on your module design.
