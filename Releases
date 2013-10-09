@@ -5,4 +5,4 @@ Basic version with working Router and Model/Events and Params extraction.
 
 Next Release v0.02
 ---------
-Implementing DB Core Class for data retrieval
+Implementing Auth 
