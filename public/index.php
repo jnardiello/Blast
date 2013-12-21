@@ -87,5 +87,3 @@ $viewInstance = new $viewName($modelInstance);
 
 //Render of the Template
 $viewInstance->render();
-
-?>
