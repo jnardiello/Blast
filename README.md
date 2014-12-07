@@ -1,4 +1,4 @@
-# 
+# Not under active development
 This was my **very first** personal project and dates back to 2013. It is not anymore maintained.
 
 ## Blast framework
