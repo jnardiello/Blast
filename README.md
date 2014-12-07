@@ -1,7 +1,7 @@
-## Defunct
-This was my **very first** personal project. It is now defunct and not anymore maintained.
+# 
+This was my **very first** personal project and dates back to 2013. It is not anymore maintained.
 
-#Blast framework
+## Blast framework
 
 **Blast** is a PHP framework that aims to provide few functionalities (such as a Markdown Based Blogging engine and an Auth login routine). It is carefully crafted and i'm trying to ship the best code possible. All main functionalities are tested but i consider it still as an early Alpha, i therefore don't recommend using it in production or for large systems.
 
